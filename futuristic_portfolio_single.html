@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Futuristik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #1a1d29;
+            --bg-secondary: #22252f;
+            --bg-tertiary: #2a2d3a;
+            --text-primary: #e0e6ed;
+            --text-secondary: #a8b2c1;
+            --accent-cyan: #00d9ff;
+            --accent-blue: #0080ff;
+            --accent-teal: #00b8d4;
+            --neon-glow: 0 0 10px rgba(0, 217, 255, 0.5);
+            --neon-glow-strong: 0 0 20px rgba(0, 217, 255, 0.8);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1d29 0%, #22252f 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .preloader-content {
+            text-align: center;
+        }
+
+        .logo-svg {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+            filter: drop-shadow(var(--neon-glow));
+        }
+
+        .progress-bar {
+            width: 250px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            width: 0;
+            border-radius: 10px;
+            box-shadow: var(--neon-glow);
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .circuit-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .morph-svg {
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            width: 500px;
+            height: 500px;
+            opacity: 0.4;
+        }
+
+        .floating-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .float-icon {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            opacity: 0.3;
+        }
+
+        .icon1 { top: 15%; left: 10%; }
+        .icon2 { top: 60%; left: 80%; }
+        .icon3 { top: 75%; left: 15%; }
+        .icon4 { top: 25%; right: 15%; }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 29, 41, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent-cyan);
+            letter-spacing: 2px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(var(--neon-glow));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 120px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-title .line {
+            display: block;
+        }
+
+        .name-highlight {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(var(--neon-glow));
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: var(--bg-primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--neon-glow-strong);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 217, 255, 0.1);
+            box-shadow: var(--neon-glow);
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-svg {
+            width: 400px;
+            height: 400px;
+            filter: drop-shadow(var(--neon-glow));
+        }
+
+        .about {
+            padding: 100px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--accent-cyan);
+            text-shadow: var(--neon-glow);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(42, 45, 58, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(42, 45, 58, 0.8);
+            border-color: var(--accent-cyan);
+            box-shadow: var(--neon-glow);
+            transform: translateX(10px);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+        }
+
+        .stat-item h3 {
+            color: var(--text-primary);
+            font-size: 18px;
+        }
+
+        .skills {
+            padding: 100px 20px;
+            background: var(--bg-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: rgba(42, 45, 58, 0.5);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .skill-card h3 {
+            color: var(--text-primary);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            width: 0;
+            border-radius: 10px;
+            transition: width 1.5s ease;
+            box-shadow: var(--neon-glow);
+        }
+
+        .projects {
+            padding: 100px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--neon-glow-strong);
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .project-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .project-info {
+            padding: 25px;
+        }
+
+        .project-info h3 {
+            color: var(--accent-cyan);
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .project-tags span {
+            padding: 6px 14px;
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--accent-cyan);
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .contact {
+            padding: 100px 20px;
+            background: var(--bg-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(42, 45, 58, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--neon-glow);
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .contact-item h3 {
+            color: var(--accent-cyan);
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .contact-item p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(42, 45, 58, 0.5);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: var(--neon-glow);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .footer {
+            padding: 40px 20px;
+            background: var(--bg-tertiary);
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-content p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            display: block;
+            width: 30px;
+            height: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            filter: drop-shadow(var(--neon-glow));
+        }
+
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                flex-direction: column;
+                background: rgba(26, 29, 41, 0.98);
+                padding: 40px;
+                width: 250px;
+                gap: 25px;
+                transition: right 0.3s ease;
+                border-left: 1px solid rgba(0, 217, 255, 0.2);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 140px;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-visual {
+                margin-top: 40px;
+            }
+
+            .hero-svg {
+                width: 300px;
+                height: 300px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .morph-svg {
+                width: 300px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="preloader-content">
+            <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle class="logo-circle" cx="100" cy="100" r="80" fill="none" stroke="url(#logoGradient)" stroke-width="3"/>
+                <path class="logo-path" d="M 60 100 L 100 60 L 140 100 L 100 140 Z" fill="none" stroke="url(#logoGradient)" stroke-width="3"/>
+                <circle class="logo-dot" cx="100" cy="100" r="8" fill="url(#logoGradient)"/>
+            </svg>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p class="loading-text">Loading<span class="dots"></span></p>
+        </div>
+    </div>
+
+    <div class="bg-animation">
+        <svg class="circuit-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#1a2332;stop-opacity:0" />
+                    <stop offset="50%" style="stop-color:#00d9ff;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#1a2332;stop-opacity:0" />
+                </linearGradient>
+            </defs>
+            <g class="circuit-lines">
+                <line x1="0" y1="200" x2="1920" y2="200" stroke="url(#lineGradient)" stroke-width="2"/>
+                <line x1="0" y1="400" x2="1920" y2="400" stroke="url(#lineGradient)" stroke-width="2"/>
+                <line x1="0" y1="600" x2="1920" y2="600" stroke="url(#lineGradient)" stroke-width="2"/>
+                <line x1="0" y1="800" x2="1920" y2="800" stroke="url(#lineGradient)" stroke-width="2"/>
+            </g>
+            <g class="floating-nodes">
+                <circle class="node node1" cx="300" cy="250" r="6" fill="#00f0ff"/>
+                <circle class="node node2" cx="800" cy="450" r="5" fill="#00d9ff"/>
+                <circle class="node node3" cx="1400" cy="350" r="7" fill="#0099cc"/>
+                <circle class="node node4" cx="500" cy="700" r="5" fill="#00ccff"/>
+                <circle class="node node5" cx="1200" cy="650" r="6" fill="#00b8d4"/>
+            </g>
+        </svg>
+        
+        <svg class="morph-svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <linearGradient id="morphGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:0.1" />
+                    <stop offset="100%" style="stop-color:#0080ff;stop-opacity:0.2" />
+                </linearGradient>
+            </defs>
+            <path class="morph-shape" d="M 300 50 Q 450 150 400 300 Q 350 450 300 550 Q 250 450 200 300 Q 150 150 300 50 Z" fill="url(#morphGradient)"/>
+        </svg>
+        
+        <div class="floating-icons">
+            <svg class="float-icon icon1" viewBox="0 0 50 50">
+                <path d="M 10 10 L 40 10 L 40 40 L 10 40 Z M 15 20 L 35 20 M 15 25 L 35 25 M 15 30 L 30 30" stroke="#00d9ff" stroke-width="2" fill="none"/>
+            </svg>
+            <svg class="float-icon icon2" viewBox="0 0 50 50">
+                <circle cx="25" cy="25" r="15" stroke="#00f0ff" stroke-width="2" fill="none"/>
+                <path d="M 25 15 L 25 35 M 15 25 L 35 25" stroke="#00f0ff" stroke-width="2"/>
+            </svg>
+            <svg class="float-icon icon3" viewBox="0 0 50 50">
+                <path d="M 25 10 L 40 25 L 25 40 L 10 25 Z" stroke="#0099cc" stroke-width="2" fill="none"/>
+                <circle cx="25" cy="25" r="5" fill="#0099cc"/>
+            </svg>
+            <svg class="float-icon icon4" viewBox="0 0 50 50">
+                <path d="M 15 15 L 35 15 L 35 35 L 15 35 Z M 20 20 L 30 25 L 20 30 Z" stroke="#00ccff" stroke-width="2" fill="none"/>
+            </svg>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <svg viewBox="0 0 40 40" class="logo-icon">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="#00d9ff" stroke-width="2"/>
+                    <path d="M 12 20 L 20 12 L 28 20 L 20 28 Z" fill="none" stroke="#00d9ff" stroke-width="2"/>
+                </svg>
+                <span>PORTFOLIO</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#skills">Keahlian</a></li>
+                <li><a href="#projects">Proyek</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="line">Halo, Saya</span>
+                <span class="line name-highlight">John Developer</span>
+                <span class="line">Full Stack Developer</span>
+            </h1>
+            <p class="hero-subtitle">Membangun pengalaman digital yang inovatif dan futuristik</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">Lihat Proyek</a>
+                <a href="#contact" class="btn btn-secondary">Hubungi Saya</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <svg viewBox="0 0 400 400" class="hero-svg">
+                <defs>
+                    <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:0.8" />
+                        <stop offset="100%" style="stop-color:#0080ff;stop-opacity:0.8" />
+                    </linearGradient>
+                </defs>
+                <circle class="hero-circle1" cx="200" cy="200" r="150" fill="none" stroke="url(#heroGrad)" stroke-width="2"/>
+                <circle class="hero-circle2" cx="200" cy="200" r="120" fill="none" stroke="url(#heroGrad)" stroke-width="2"/>
+                <circle class="hero-circle3" cx="200" cy="200" r="90" fill="none" stroke="url(#heroGrad)" stroke-width="2"/>
+                <g class="hero-dots">
+                    <circle cx="200" cy="50" r="5" fill="#00f0ff"/>
+                    <circle cx="350" cy="200" r="5" fill="#00d9ff"/>
+                    <circle cx="200" cy="350" r="5" fill="#0099cc"/>
+                    <circle cx="50" cy="200" r="5" fill="#00ccff"/>
+                </g>
+            </svg>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">Tentang Saya</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Saya adalah seorang Full Stack Developer dengan passion dalam menciptakan aplikasi web modern dan responsif. Dengan pengalaman lebih dari 5 tahun, saya fokus pada teknologi terkini dan best practices dalam pengembangan software.</p>
+                    <p>Keahlian saya mencakup front-end development dengan React, Vue.js, dan backend development menggunakan Node.js, Python, dan database modern. Saya selalu bersemangat untuk belajar teknologi baru dan menyelesaikan tantangan kompleks.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <svg viewBox="0 0 60 60" class="stat-icon">
+                            <circle cx="30" cy="30" r="25" fill="none" stroke="#0099cc" stroke-width="2"/>
+                            <text x="30" y="38" text-anchor="middle" fill="#0099cc" font-size="20" font-weight="bold">30+</text>
+                        </svg>
+                        <h3>Klien Puas</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Keahlian Teknis</h2>
+            <div class="skills-grid">
+                <div class="skill-card" data-skill="javascript">
+                    <svg viewBox="0 0 100 100" class="skill-icon">
+                        <rect class="js-bg" x="10" y="10" width="80" height="80" rx="8" fill="none" stroke="#f7df1e" stroke-width="3"/>
+                        <text x="50" y="60" text-anchor="middle" fill="#f7df1e" font-size="32" font-weight="bold">JS</text>
+                        <circle class="orbit-dot orbit-1" cx="50" cy="15" r="3" fill="#f7df1e"/>
+                        <circle class="orbit-dot orbit-2" cx="85" cy="50" r="3" fill="#f7df1e"/>
+                        <circle class="orbit-dot orbit-3" cx="50" cy="85" r="3" fill="#f7df1e"/>
+                        <circle class="orbit-dot orbit-4" cx="15" cy="50" r="3" fill="#f7df1e"/>
+                    </svg>
+                    <h3>JavaScript</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="95"></div>
+                    </div>
+                    <span class="skill-level">Expert</span>
+                </div>
+
+                <div class="skill-card" data-skill="python">
+                    <svg viewBox="0 0 100 100" class="skill-icon">
+                        <path class="python-top" d="M 30 25 Q 30 15 40 15 L 60 15 Q 70 15 70 25 L 70 40 L 50 40" fill="none" stroke="#3776ab" stroke-width="3"/>
+                        <path class="python-bottom" d="M 70 75 Q 70 85 60 85 L 40 85 Q 30 85 30 75 L 30 60 L 50 60" fill="none" stroke="#ffd43b" stroke-width="3"/>
+                        <circle class="python-eye1" cx="42" cy="28" r="2" fill="#3776ab"/>
+                        <circle class="python-eye2" cx="58" cy="72" r="2" fill="#ffd43b"/>
+                        <path class="snake-line" d="M 50 40 Q 45 50 50 60" fill="none" stroke="#00d9ff" stroke-width="2" stroke-dasharray="5,5"/>
+                    </svg>
+                    <h3>Python</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="92"></div>
+                    </div>
+                    <span class="skill-level">Expert</span>
+                </div>
+
+                <div class="skill-card" data-skill="react">
+                    <svg viewBox="0 0 100 100" class="skill-icon">
+                        <ellipse class="react-orbit react-orbit1" cx="50" cy="50" rx="35" ry="15" fill="none" stroke="#61dafb" stroke-width="2"/>
+                        <ellipse class="react-orbit react-orbit2" cx="50" cy="50" rx="35" ry="15" fill="none" stroke="#61dafb" stroke-width="2" transform="rotate(60 50 50)"/>
+                        <ellipse class="react-orbit react-orbit3" cx="50" cy="50" rx="35" ry="15" fill="none" stroke="#61dafb" stroke-width="2" transform="rotate(120 50 50)"/>
+                        <circle class="react-core" cx="50" cy="50" r="6" fill="#61dafb"/>
+                    </svg>
+                    <h3>React.js</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="90"></div>
+                    </div>
+                    <span class="skill-level">Advanced</span>
+                </div>
+
+                <div class="skill-card" data-skill="nodejs">
+                    <svg viewBox="0 0 100 100" class="skill-icon">
+                        <path class="node-hex" d="M 50 15 L 75 30 L 75 60 L 50 75 L 25 60 L 25 30 Z" fill="none" stroke="#68a063" stroke-width="3"/>
+                        <text x="50" y="55" text-anchor="middle" fill="#68a063" font-size="18" font-weight="bold">Node</text>
+                        <circle class="node-dot node-dot1" cx="50" cy="15" r="3" fill="#68a063"/>
+                        <circle class="node-dot node-dot2" cx="75" cy="30" r="3" fill="#68a063"/>
+                        <circle class="node-dot node-dot3" cx="75" cy="60" r="3" fill="#68a063"/>
+                        <circle class="node-dot node-dot4" cx="50" cy="75" r="3" fill="#68a063"/>
+                        <circle class="node-dot node-dot5" cx="25" cy="60" r="3" fill="#68a063"/>
+                        <circle class="node-dot node-dot6" cx="25" cy="30" r="3" fill="#68a063"/>
+                    </svg>
+                    <h3>Node.js</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="88"></div>
+                    </div>
+                    <span class="skill-level">Advanced</span>
+                </div>
+
+                <div class="skill-card" data-skill="typescript">
+                    <svg viewBox="0 0 100 100" class="skill-icon">
+                        <rect class="ts-bg" x="15" y="15" width="70" height="70" rx="5" fill="none" stroke="#3178c6" stroke-width="3"/>
+                        <text x="50" y="60" text-anchor="middle" fill="#3178c6" font-size="28" font-weight="bold">TS</text>
+                        <path class="ts-bracket ts-bracket1" d="M 20 30 L 20 25 L 25 25" fill="none" stroke="#3178c6" stroke-width="2"/>
+                        <path class="ts-bracket ts-bracket2" d="M 80 30 L 80 25 L 75 25" fill="none" stroke="#3178c6" stroke-width="2"/>
+                        <path class="ts-bracket ts-bracket3" d="M 20 70 L 20 75 L 25 75" fill="none" stroke="#3178c6" stroke-width="2"/>
+                        <path class="ts-bracket ts-bracket4" d="M 80 70 L 80 75 L 75 75" fill="none" stroke="#3178c6" stroke-width="2"/>
+                    </svg>
+                    <h3>TypeScript</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="87"></div>
+                    </div>
+                    <span class="skill-level">Advanced</span>
+                </div>
+
+                <div class="skill-card" data-skill="vue">
+                    <svg viewBox="0 0 100 100" class="skill-icon">
+                        <path class="vue-dark" d="M 50 30 L 35 55 L 50 80 L 65 55 Z" fill="none" stroke="#35495e" stroke-width="3"/>
+                        <path class="vue-light" d="M 50 30 L 42 45 L 50 60 L 58 45 Z" fill="none" stroke="#41b883" stroke-width="3"/>
+                        <circle class="vue-dot vue-dot1" cx="35" cy="55" r="2.5" fill="#41b883"/>
+                        <circle class="vue-dot vue-dot2" cx="65" cy="55" r="2.5" fill="#41b883"/>
+                    </svg>
+                    <h3>Vue.js</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="85"></div>
+                    </div>
+                    <span class="skill-level">Advanced</span>
+                </div>
+
+                <div class="skill-card" data-skill="php">
+                    <svg viewBox="0 0 100 100" class="skill-icon">
+                        <ellipse class="php-ellipse" cx="50" cy="50" rx="40" ry="20" fill="none" stroke="#777bb4" stroke-width="3"/>
+                        <text x="50" y="57" text-anchor="middle" fill="#777bb4" font-size="22" font-weight="bold">PHP</text>
+                        <circle class="php-particle php-p1" cx="25" cy="50" r="2" fill="#777bb4"/>
+                        <circle class="php-particle php-p2" cx="75" cy="50" r="2" fill="#777bb4"/>
+                        <circle class="php-particle php-p3" cx="50" cy="35" r="2" fill="#777bb4"/>
+                        <circle class="php-particle php-p4" cx="50" cy="65" r="2" fill="#777bb4"/>
+                    </svg>
+                    <h3>PHP</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="83"></div>
+                    </div>
+                    <span class="skill-level">Intermediate</span>
+                </div>
+
+                <div class="skill-card" data-skill="java">
+                    <svg viewBox="0 0 100 100" class="skill-icon">
+                        <path class="java-cup" d="M 35 60 Q 35 70 50 75 Q 65 70 65 60 L 60 40 L 40 40 Z" fill="none" stroke="#007396" stroke-width="3"/>
+                        <path class="java-steam java-steam1" d="M 42 35 Q 40 30 42 25" fill="none" stroke="#007396" stroke-width="2"/>
+                        <path class="java-steam java-steam2" d="M 50 35 Q 48 28 50 22" fill="none" stroke="#007396" stroke-width="2"/>
+                        <path class="java-steam java-steam3" d="M 58 35 Q 60 30 58 25" fill="none" stroke="#007396" stroke-width="2"/>
+                        <circle class="java-bubble java-b1" cx="45" cy="55" r="2" fill="#007396"/>
+                        <circle class="java-bubble java-b2" cx="55" cy="52" r="2" fill="#007396"/>
+                    </svg>
+                    <h3>Java</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="80"></div>
+                    </div>
+                    <span class="skill-level">Intermediate</span>
+                </div>
+
+                <div class="skill-card" data-skill="go">
+                    <svg viewBox="0 0 100 100" class="skill-icon">
+                        <circle class="go-head" cx="65" cy="35" r="12" fill="none" stroke="#00add8" stroke-width="3"/>
+                        <ellipse class="go-body" cx="50" cy="60" rx="25" ry="20" fill="none" stroke="#00add8" stroke-width="3"/>
+                        <circle class="go-eye go-eye1" cx="62" cy="33" r="2" fill="#00add8"/>
+                        <circle class="go-eye go-eye2" cx="68" cy="33" r="2" fill="#00add8"/>
+                        <line class="go-line go-line1" x1="30" y1="45" x2="40" y2="45" stroke="#00add8" stroke-width="2"/>
+                        <line class="go-line go-line2" x1="30" y1="60" x2="40" y2="60" stroke="#00add8" stroke-width="2"/>
+                        <line class="go-line go-line3" x1="30" y1="75" x2="40" y2="75" stroke="#00add8" stroke-width="2"/>
+                    </svg>
+                    <h3>Go</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="78"></div>
+                    </div>
+                    <span class="skill-level">Intermediate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Proyek Terbaru</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <svg viewBox="0 0 300 200" class="project-svg">
+                            <rect width="300" height="200" fill="#1a2332"/>
+                            <rect x="20" y="20" width="260" height="160" fill="none" stroke="#00d9ff" stroke-width="2"/>
+                            <circle cx="150" cy="100" r="40" fill="none" stroke="#00f0ff" stroke-width="3"/>
+                            <path d="M 130 100 L 150 80 L 170 100 L 150 120 Z" fill="#00d9ff"/>
+                        </svg>
+                    </div>
+                    <div class="project-info">
+                        <h3>E-Commerce Platform</h3>
+                        <p>Platform e-commerce modern dengan fitur lengkap, payment gateway, dan admin dashboard.</p>
+                        <div class="project-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <svg viewBox="0 0 300 200" class="project-svg">
+                            <rect width="300" height="200" fill="#1a2332"/>
+                            <rect x="20" y="20" width="260" height="160" fill="none" stroke="#00ccff" stroke-width="2"/>
+                            <line x1="60" y1="60" x2="240" y2="60" stroke="#00f0ff" stroke-width="2"/>
+                            <line x1="60" y1="100" x2="220" y2="100" stroke="#00d9ff" stroke-width="2"/>
+                            <line x1="60" y1="140" x2="200" y2="140" stroke="#0099cc" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="project-info">
+                        <h3>Task Management App</h3>
+                        <p>Aplikasi manajemen tugas dengan real-time collaboration dan notifikasi.</p>
+                        <div class="project-tags">
+                            <span>Vue.js</span>
+                            <span>Firebase</span>
+                            <span>WebSocket</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <svg viewBox="0 0 300 200" class="project-svg">
+                            <rect width="300" height="200" fill="#1a2332"/>
+                            <circle cx="150" cy="100" r="70" fill="none" stroke="#00d9ff" stroke-width="2"/>
+                            <circle cx="150" cy="100" r="50" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                            <circle cx="150" cy="100" r="30" fill="none" stroke="#0099cc" stroke-width="2"/>
+                            <circle cx="150" cy="100" r="10" fill="#00ccff"/>
+                        </svg>
+                    </div>
+                    <div class="project-info">
+                        <h3>Analytics Dashboard</h3>
+                        <p>Dashboard analytics dengan visualisasi data real-time dan reporting system.</p>
+                        <div class="project-tags">
+                            <span>React</span>
+                            <span>D3.js</span>
+                            <span>Express</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Hubungi Saya</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg viewBox="0 0 50 50" class="contact-icon">
+                            <circle cx="25" cy="25" r="20" fill="none" stroke="#00d9ff" stroke-width="2"/>
+                            <path d="M 15 20 L 25 28 L 35 20 M 15 20 L 15 30 L 35 30 L 35 20" fill="none" stroke="#00d9ff" stroke-width="2"/>
+                        </svg>
+                        <div>
+                            <h3>Email</h3>
+                            <p>john.developer@email.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 50 50" class="contact-icon">
+                            <circle cx="25" cy="25" r="20" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                            <path d="M 18 22 Q 20 18 25 20 Q 30 22 32 22 Q 30 28 25 30 Q 20 28 18 22" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                        </svg>
+                        <div>
+                            <h3>Telepon</h3>
+                            <p>+62 812-3456-7890</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 50 50" class="contact-icon">
+                            <circle cx="25" cy="25" r="20" fill="none" stroke="#0099cc" stroke-width="2"/>
+                            <path d="M 25 15 L 25 30 M 20 25 L 30 25" stroke="#0099cc" stroke-width="2"/>
+                        </svg>
+                        <div>
+                            <h3>Lokasi</h3>
+                            <p>Jakarta, Indonesia</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Nama Anda" required>
+                    <input type="email" placeholder="Email Anda" required>
+                    <textarea placeholder="Pesan Anda" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 John Developer. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">
+                        <svg viewBox="0 0 30 30">
+                            <circle cx="15" cy="15" r="13" fill="none" stroke="#00d9ff" stroke-width="2"/>
+                            <path d="M 15 8 Q 12 8 10 10 Q 8 12 8 15 Q 8 18 10 20 L 12 20 L 12 18 Q 10 18 10 15 Q 10 13 12 11 Q 13 10 15 10 Q 17 10 18 11 Q 20 13 20 15 Q 20 18 18 18 L 18 20 L 20 20 Q 22 18 22 15 Q 22 12 20 10 Q 18 8 15 8" fill="#00d9ff"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg viewBox="0 0 30 30">
+                            <rect x="5" y="5" width="20" height="20" rx="3" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                            <path d="M 10 13 L 10 20 M 10 10 L 10 11 M 14 13 L 14 20 M 14 13 Q 14 11 16 11 Q 18 11 18 13 L 18 20" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter">
+                        <svg viewBox="0 0 30 30">
+                            <circle cx="15" cy="15" r="13" fill="none" stroke="#0099cc" stroke-width="2"/>
+                            <path d="M 10 12 Q 12 10 15 12 Q 18 14 20 12 M 12 18 Q 14 20 16 19 Q 18 18 19 16" fill="none" stroke="#0099cc" stroke-width="2"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+            
+            tl.to('.logo-circle', {
+                strokeDasharray: '502, 502',
+                strokeDashoffset: 0,
+                duration: 1.5,
+                ease: 'power2.inOut'
+            })
+            .to('.logo-path', {
+                strokeDasharray: '400, 400',
+                strokeDashoffset: 0,
+                duration: 1,
+                ease: 'power2.inOut'
+            }, '-=1')
+            .to('.logo-dot', {
+                scale: 1,
+                opacity: 1,
+                duration: 0.5
+            }, '-=0.5');
+
+            gsap.to('.progress-fill', {
+                width: '100%',
+                duration: 2,
+                ease: 'power2.inOut',
+                onComplete: () => {
+                    gsap.to('#preloader', {
+                        opacity: 0,
+                        duration: 0.5,
+                        onComplete: () => {
+                            document.getElementById('preloader').style.display = 'none';
+                            initAnimations();
+                        }
+                    });
+                }
+            });
+        });
+
+        function initAnimations() {
+            gsap.to('.circuit-lines line', {
+                strokeDasharray: '20, 80',
+                strokeDashoffset: -100,
+                duration: 3,
+                repeat: -1,
+                ease: 'none',
+                stagger: 0.5
+            });
+
+            gsap.to('.node', {
+                y: '+=30',
+                duration: 3,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                stagger: 0.3
+            });
+
+            gsap.to('.node', {
+                opacity: 0.3,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                stagger: 0.2
+            });
+
+            const morphPaths = [
+                'M 300 50 Q 450 150 400 300 Q 350 450 300 550 Q 250 450 200 300 Q 150 150 300 50 Z',
+                'M 300 100 Q 500 200 450 300 Q 400 400 300 500 Q 200 400 150 300 Q 100 200 300 100 Z',
+                'M 300 80 Q 480 180 420 300 Q 360 420 300 520 Q 240 420 180 300 Q 120 180 300 80 Z'
+            ];
+
+            let currentPath = 0;
+            setInterval(() => {
+                currentPath = (currentPath + 1) % morphPaths.length;
+                gsap.to('.morph-shape', {
+                    attr: { d: morphPaths[currentPath] },
+                    duration: 3,
+                    ease: 'power1.inOut'
+                });
+            }, 3000);
+
+            gsap.to('.float-icon', {
+                y: '+=50',
+                rotation: 360,
+                duration: 8,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                stagger: 1
+            });
+
+            const heroTl = gsap.timeline();
+            heroTl.to('.hero-title .line', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power3.out'
+            })
+            .to('.hero-subtitle', {
+                opacity: 1,
+                duration: 0.6
+            }, '-=0.4')
+            .to('.hero-buttons', {
+                opacity: 1,
+                duration: 0.6
+            }, '-=0.3');
+
+            gsap.to('.hero-circle1', {
+                rotation: 360,
+                transformOrigin: '50% 50%',
+                duration: 20,
+                repeat: -1,
+                ease: 'none'
+            });
+
+            gsap.to('.hero-circle2', {
+                rotation: -360,
+                transformOrigin: '50% 50%',
+                duration: 15,
+                repeat: -1,
+                ease: 'none'
+            });
+
+            gsap.to('.hero-circle3', {
+                rotation: 360,
+                transformOrigin: '50% 50%',
+                duration: 10,
+                repeat: -1,
+                ease: 'none'
+            });
+
+            gsap.to('.hero-dots circle', {
+                scale: 1.5,
+                opacity: 0.5,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                stagger: 0.3
+            });
+
+            gsap.utils.toArray('.section-title').forEach(title => {
+                gsap.from(title, {
+                    scrollTrigger: {
+                        trigger: title,
+                        start: 'top 80%',
+                        end: 'top 20%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    ease: 'power3.out'
+                });
+            });
+
+            gsap.from('.about-text p', {
+                scrollTrigger: {
+                    trigger: '.about-text',
+                    start: 'top 75%'
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power2.out'
+            });
+
+            gsap.from('.stat-item', {
+                scrollTrigger: {
+                    trigger: '.about-stats',
+                    start: 'top 75%'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power2.out'
+            });
+
+            gsap.from('.skill-card', {
+                scrollTrigger: {
+                    trigger: '.skills-grid',
+                    start: 'top 75%'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+
+            gsap.utils.toArray('.skill-progress').forEach(bar => {
+                const progress = bar.dataset.progress;
+                gsap.to(bar, {
+                    scrollTrigger: {
+                        trigger: bar,
+                        start: 'top 80%'
+                    },
+                    width: progress + '%',
+                    duration: 1.5,
+                    ease: 'power2.out'
+                });
+            });
+
+            gsap.from('.project-card', {
+                scrollTrigger: {
+                    trigger: '.projects-grid',
+                    start: 'top 75%'
+                },
+                opacity: 0,
+                y: 80,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.contact-item', {
+                scrollTrigger: {
+                    trigger: '.contact-info',
+                    start: 'top 75%'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power2.out'
+            });
+
+            gsap.from('.contact-form', {
+                scrollTrigger: {
+                    trigger: '.contact-form',
+                    start: 'top 75%'
+                },
+                opacity: 0,
+                x: 50,
+                duration: 1,
+                ease: 'power2.out'
+            });
+
+            gsap.to('.morph-svg', {
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 1
+                },
+                y: 200,
+                rotation: 45,
+                ease: 'none'
+            });
+
+            gsap.to('.float-icon', {
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 2
+                },
+                y: -300,
+                ease: 'none',
+                stagger: 0.1
+            });
+        }
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            gsap.to(navToggle.children[0], {
+                rotation: navLinks.classList.contains('active') ? 45 : 0,
+                y: navLinks.classList.contains('active') ? 8 : 0,
+                duration: 0.3
+            });
+            
+            gsap.to(navToggle.children[1], {
+                opacity: navLinks.classList.contains('active') ? 0 : 1,
+                duration: 0.3
+            });
+            
+            gsap.to(navToggle.children[2], {
+                rotation: navLinks.classList.contains('active') ? -45 : 0,
+                y: navLinks.classList.contains('active') ? -8 : 0,
+                duration: 0.3
+            });
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 968) {
+                    navLinks.classList.remove('active');
+                    
+                    gsap.to(navToggle.children[0], {
+                        rotation: 0,
+                        y: 0,
+                        duration: 0.3
+                    });
+                    
+                    gsap.to(navToggle.children[1], {
+                        opacity: 1,
+                        duration: 0.3
+                    });
+                    
+                    gsap.to(navToggle.children[2], {
+                        rotation: 0,
+                        y: 0,
+                        duration: 0.3
+                    });
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const navbar = document.querySelector('.navbar');
+            
+            if (currentScroll > 100) {
+                navbar.style.boxShadow = '0 5px 30px rgba(0, 217, 255, 0.1)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const btn = contactForm.querySelector('.btn-primary');
+            const originalText = btn.textContent;
+            
+            gsap.to(btn, {
+                scale: 0.95,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => {
+                    btn.textContent = 'Terkirim!';
+                    btn.style.background = 'linear-gradient(135deg, #00ff88, #00cc66)';
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '';
+                        contactForm.reset();
+                    }, 2000);
+                }
+            });
+        });
+
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                gsap.to(btn, {
+                    scale: 1.05,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            const svg = card.querySelector('.project-svg');
+            
+            card.addEventListener('mouseenter', () => {
+                gsap.to(svg.querySelectorAll('circle, rect, path, line'), {
+                    scale: 1.1,
+                    transformOrigin: '50% 50%',
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    stagger: 0.05
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(svg.querySelectorAll('circle, rect, path, line'), {
+                    scale: 1,
+                    transformOrigin: '50% 50%',
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    stagger: 0.05
+                });
+            });
+        });
+
+        document.querySelectorAll('.skill-card').forEach(card => {
+            const icon = card.querySelector('.skill-icon');
+            
+            card.addEventListener('mouseenter', () => {
+                gsap.to(icon, {
+                    rotation: 360,
+                    duration: 0.8,
+                    ease: 'power2.inOut'
+                });
+            });
+        });
+
+        const glowElements = document.querySelectorAll('.hero-svg, .logo-icon, .skill-icon, .contact-icon');
+        glowElements.forEach(el => {
+            gsap.to(el, {
+                filter: 'drop-shadow(0 0 20px rgba(0, 217, 255, 0.8))',
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+        });
+
+        setInterval(() => {
+            const nodes = document.querySelectorAll('.node');
+            nodes.forEach(node => {
+                const randomX = Math.random() * 100 - 50;
+                const randomY = Math.random() * 100 - 50;
+                
+                gsap.to(node, {
+                    x: randomX,
+                    y: randomY,
+                    duration: 4 + Math.random() * 2,
+                    ease: 'sine.inOut'
+                });
+            });
+        }, 5000);
+
+        document.querySelectorAll('.logo-circle, .logo-path').forEach(el => {
+            const length = el.getTotalLength();
+            el.style.strokeDasharray = length;
+            el.style.strokeDashoffset = length;
+        });
+    </script>
+</body>
+</html>60 60" class="stat-icon">
+                            <circle cx="30" cy="30" r="25" fill="none" stroke="#00d9ff" stroke-width="2"/>
+                            <text x="30" y="38" text-anchor="middle" fill="#00d9ff" font-size="20" font-weight="bold">5+</text>
+                        </svg>
+                        <h3>Tahun Pengalaman</h3>
+                    </div>
+                    <div class="stat-item">
+                        <svg viewBox="0 0 60 60" class="stat-icon">
+                            <circle cx="30" cy="30" r="25" fill="none" stroke="#00f0ff" stroke-width="2"/>
+                            <text x="30" y="38" text-anchor="middle" fill="#00f0ff" font-size="20" font-weight="bold">50+</text>
+                        </svg>
+                        <h3>Proyek Selesai</h3>
+                    </div>
+                    <div class="stat-item">
+                        <svg viewBox="0 0 
